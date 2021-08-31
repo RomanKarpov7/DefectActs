@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">DefectActs</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="barcode_failure">No barcode captured</string>
+    <string name="photo">Photo</string>
+    <string name="next">Next</string>
+    <string name="barcode">Barcode</string>
+    <string name="decrement">Decrement</string>
+    <string name="reasons">Reasons</string>
+    <string name="comment">Comment</string>
+    <string name="amount">Amount</string>
+    <string name="deliveries">Deliveries</string>
+    <string name="delivery">Delivery</string>
+    <string name="defect">Defect</string>
+    <string name="actExist">Act exist</string>
+    <string name="search">Search</string>
+    <string name="series">Series</string>
+    <string name="title">Title</string>
+    <string name="suplier">Suplier</string>
+    <string name="country">Country</string>
+    <string name="choose_delivery">Choose delivery</string>
+    <string name="writeoff">Write-off</string>
+    <string name="pref_sufix" translatable="false">pref_sufix</string>
+    <string name="pref_prefix" translatable="false">pref_prefix</string>
+    <string name="clear">Clear</string>
+    <string name="settings">Settings</string>
+    <string name="log_entries">LogEntries</string>
+    <string name="increment">Increment</string>
+    <string name="difference">Difference</string>
+    <string name="length">Length</string>
+    <string name="diameter">Diameter</string>
+    <string name="bulk">Bulk</string>
+    <string name="budgeonAmount">Budgeon amount</string>
+    <string name="weigth">Weigth</string>
+    <string name="defects">Defects</string>
+    <string name="differencies">Differencies</string>
+    <string name="dropdown">dropdown</string>
+    <string name="dialog_no_photo">No photo. Continue?</string>
+    <string name="dialog_back_pressed">Data not saved. Continue?</string>
+    <string name="users">Users</string>
+    <string name="choose_position_dialog_title">Choose position</string>
+    <string name="btn_create_new">Create new</string>
+    <string name="pref_server" translatable="false">pref_server</string>
+    <string name="pref_user" translatable="false">pref_user</string>
+    <string name="pref_password" translatable="false">pref_password</string>
+    <string name="connection">Connection</string>
+    <string name="server">Server</string>
+    <string name="user">User</string>
+    <string name="password">Password</string>
+    <string name="barcode_scanner">Barcode scanner</string>
+    <string name="prefix">Prefix</string>
+    <string name="sufix">Sufix</string>
+    <string name="error_upload_photo_message">Retry uploading photos</string>
+    <string name="error_upload_photo_title">Upload photos error</string>
+    <string name="retry">Retry</string>
+    <string name="cancel">Cancel</string>
+    <string name="upload_photo_activity_label">Uploading photo</string>
+    <string name="uploading_photo_message">Can\'t upload this photos to server</string>
+    <string name="general_delivery_photos">General delivery photos</string>
+    <string name="defects_photos">Defects photos</string>
+    <string name="diff_photos">Diff photos</string>
+    <string name="delete_all">Delete all</string>
+    <string name="photo_queue_message">In queue for uploading</string>
+    <string name="including_failed">Including failed</string>
+    <string name="delete_photos_dialog_title">Delete photos</string>
+    <string name="delete_photo_dialog_message">Are you sure?</string>
+
+</resources>

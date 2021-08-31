@@ -56,7 +56,12 @@ public class GoodsSearchAdapter extends ArrayAdapter<Good> {
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            if((filterResults == null) || (filterResults.count == 0)) return;
+            if((filterResults == null) || (filterResults.count == 0)) {
+                if (charSequence != null) {
+                    callback.onGoodNotFounded(charSequence);
+                }
+                return;
+            }
             ArrayList<Good> filteredList = (ArrayList<Good>)filterResults.values;
             clear();
 
@@ -75,6 +80,7 @@ public class GoodsSearchAdapter extends ArrayAdapter<Good> {
 
     public interface GoodFoundCallback{
         void onGoodFounded(Good good);
+        void onGoodNotFounded(CharSequence charSequence);
     }
 
     public GoodsSearchAdapter(@NonNull Context context) {

@@ -17,6 +17,7 @@ import ru.a7flowers.pegorenkov.defectacts.data.entities.DefectReasonEntity;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.Delivery;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.DifferenceEntity;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.GoodEntity;
+import ru.a7flowers.pegorenkov.defectacts.data.entities.LogEntry;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.Reason;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.UploadPhotoEntity;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.User;
@@ -67,6 +68,22 @@ public class LocalDataSource {
                 mDb.goodDao().deleteAllLengths();
                 mDb.goodDao().deleteAllWeigths();
                 callback.onDatabaseCleared();
+            }
+        });
+    }
+
+    //LOG_ENTRIES
+    public LiveData<List<LogEntry>> getLogEntries() {
+        Log.d(TAG, "Get all log entries");
+        return mDb.logEntryDao().loadAllEntries();
+    }
+
+    public void saveLogEntry(final LogEntry entry) {
+        Log.d(TAG, "Insert 1 log entry");
+        mAppExecutors.discIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.logEntryDao().insertEntry(entry);
             }
         });
     }

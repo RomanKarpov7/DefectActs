@@ -98,6 +98,11 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
                 startActivity(i);
                 return true;
             }
+            case R.id.action_log_entries:{
+                Intent i = new Intent(UsersActivity.this, LogEntriesActivity.class);
+                startActivity(i);
+                return true;
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }

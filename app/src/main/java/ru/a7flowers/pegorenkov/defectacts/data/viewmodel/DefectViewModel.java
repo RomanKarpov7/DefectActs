@@ -9,12 +9,14 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import ru.a7flowers.pegorenkov.defectacts.data.DataSource;
 import ru.a7flowers.pegorenkov.defectacts.data.Repository;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.DefectEntity;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.DefectReasonEntity;
+import ru.a7flowers.pegorenkov.defectacts.data.entities.LogEntry;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.Reason;
 import ru.a7flowers.pegorenkov.defectacts.data.network.Defect;
 import ru.a7flowers.pegorenkov.defectacts.data.network.Good;
@@ -262,5 +264,9 @@ public class DefectViewModel extends AndroidViewModel{
         fillDefectByGood(selectedGood);
         selectedGood = null;
         mGoodDefects.setValue(null);
+    }
+
+    public void logGoodNotFound(String series) {
+        mRepository.logGoodNotFound(series);
     }
 }

@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import androidx.work.OneTimeWorkRequest;
@@ -14,6 +15,7 @@ import ru.a7flowers.pegorenkov.defectacts.data.DataSource.LoadReasonsCallback;
 import ru.a7flowers.pegorenkov.defectacts.data.DataSource.ReloadDataCallback;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.Delivery;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.GoodEntity;
+import ru.a7flowers.pegorenkov.defectacts.data.entities.LogEntry;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.Reason;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.UploadPhotoEntity;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.User;
@@ -37,6 +39,7 @@ public class Repository {
     private NetworkDataSource mNetworkDataSource;
     private LocalDataSource mLocalDataSource;
 
+    private LiveData<List<LogEntry>> mLogEntries;
     private LiveData<List<User>> mUsers;
     private LiveData<List<Delivery>> mDeliveries;
     private LiveData<List<Reason>> mReasons;
@@ -95,6 +98,14 @@ public class Repository {
         mNetworkDataSource.getServerVersion(callback);
     }
 
+    //LOG_ENTRIES
+    public LiveData<List<LogEntry>> getLogEntries(){
+        if(mLogEntries == null){
+            mLogEntries = mLocalDataSource.getLogEntries();
+        }
+        return mLogEntries;
+    }
+
     //USERS
     public LiveData<List<User>> getUsers(){
         if(mUsers == null){
@@ -127,6 +138,7 @@ public class Repository {
             @Override
             public void onUsersLoadFailed(Throwable t) {
                 try {
+                    mLocalDataSource.saveLogEntry(new LogEntry(new Date(), "Ошибка загрузки пользователей", t.getMessage()));
                     CustomDialogFragment dialog = new CustomDialogFragment("Ошибка загрузки пользователей!", "Не удалось загрузить пользователей по причине: " + t.getMessage());
                     dialog.show(fragmentManager, "custom");
                 } catch (Exception e) {
@@ -155,6 +167,7 @@ public class Repository {
             @Override
             public void onDeliveriesLoadFailed(Throwable t) {
                 try {
+                    mLocalDataSource.saveLogEntry(new LogEntry(new Date(), "Ошибка загрузки доставок", t.getMessage()));
                     CustomDialogFragment dialog = new CustomDialogFragment("Ошибка загрузки доставок!", "Не удалось загрузить доставки по причине: " + t.getMessage());
                     dialog.show(fragmentManager, "custom");
                 } catch (Exception e) {
@@ -225,6 +238,7 @@ public class Repository {
                 @Override
                 public void onGoodsLoadFailed(Throwable t) {
                     try {
+                        mLocalDataSource.saveLogEntry(new LogEntry(new Date(), "Ошибка загрузки товаров", t.getMessage()));
                         CustomDialogFragment dialog = new CustomDialogFragment("Ошибка загрузки товаров!", "Не удалось загрузить товары по причине: " + t.getMessage());
                         dialog.show(fragmentManager, "custom");
                     } catch (Exception e) {
@@ -237,6 +251,10 @@ public class Repository {
 
     public void getGood(String deliveryId, String series, DataSource.LoadGoodCallback callback) {
         mLocalDataSource.getGood(deliveryId, series, callback);
+    }
+
+    public void logGoodNotFound(String series) {
+        mLocalDataSource.saveLogEntry(new LogEntry(new Date(), "Товар не найден", "шк = " + series));
     }
 
     // REASONS
@@ -258,6 +276,7 @@ public class Repository {
             @Override
             public void onReasonsLoadFailed(Throwable t) {
                 try {
+                    mLocalDataSource.saveLogEntry(new LogEntry(new Date(), "Ошибка загрузки причин порчи товаров", t.getMessage()));
                     CustomDialogFragment dialog = new CustomDialogFragment("Ошибка загрузки причин порчи товаров!", "Не удалось причины порчи товаров по причине: " + t.getMessage());
                     dialog.show(fragmentManager, "custom");
                 } catch (Exception e) {
@@ -311,6 +330,7 @@ public class Repository {
                 @Override
                 public void onDefectsLoadFailed(Throwable t) {
                     try {
+                        mLocalDataSource.saveLogEntry(new LogEntry(new Date(), "Ошибка загрузки дефектов", t.getMessage()));
                         CustomDialogFragment dialog = new CustomDialogFragment("Ошибка загрузки дефектов!", "Не удалось дефекты по причине: " + t.getMessage());
                         dialog.show(fragmentManager, "custom");
                     } catch (Exception e) {

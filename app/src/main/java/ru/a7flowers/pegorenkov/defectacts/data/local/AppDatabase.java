@@ -11,6 +11,7 @@ import ru.a7flowers.pegorenkov.defectacts.data.dao.DefectReasonDao;
 import ru.a7flowers.pegorenkov.defectacts.data.dao.DeliveryDao;
 import ru.a7flowers.pegorenkov.defectacts.data.dao.DifferenceDao;
 import ru.a7flowers.pegorenkov.defectacts.data.dao.GoodDao;
+import ru.a7flowers.pegorenkov.defectacts.data.dao.LogEntryDao;
 import ru.a7flowers.pegorenkov.defectacts.data.dao.ReasonDao;
 import ru.a7flowers.pegorenkov.defectacts.data.dao.UploadPhotoDao;
 import ru.a7flowers.pegorenkov.defectacts.data.dao.UserDao;
@@ -19,6 +20,7 @@ import ru.a7flowers.pegorenkov.defectacts.data.entities.DefectReasonEntity;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.Delivery;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.DifferenceEntity;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.GoodEntity;
+import ru.a7flowers.pegorenkov.defectacts.data.entities.LogEntry;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.Reason;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.UploadPhotoEntity;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.User;
@@ -29,6 +31,7 @@ import ru.a7flowers.pegorenkov.defectacts.data.entities.ValueLengthEntity;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.ValueWeigthEntity;
 
 @Database(entities = {
+        LogEntry.class,
         User.class,
         Delivery.class,
         GoodEntity.class,
@@ -43,7 +46,7 @@ import ru.a7flowers.pegorenkov.defectacts.data.entities.ValueWeigthEntity;
         ValueWeigthEntity.class,
         UploadPhotoEntity.class},
 
-        version = 1, exportSchema = false)
+        version = 3, exportSchema = false)
 @TypeConverters({DataConverter.class})
 public abstract class AppDatabase extends RoomDatabase{
 
@@ -55,13 +58,15 @@ public abstract class AppDatabase extends RoomDatabase{
 
         if(sInstance == null){
             synchronized (LOCK){
-                sInstance = Room.databaseBuilder(context.getApplicationContext(),
-                        AppDatabase.class,
-                        AppDatabase.DATABASE_NAME).build();
+                sInstance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, AppDatabase.DATABASE_NAME)
+                        .fallbackToDestructiveMigration()
+                        .build();
             }
         }
         return sInstance;
     }
+
+    public abstract LogEntryDao logEntryDao();
 
     public abstract UserDao userDao();
 

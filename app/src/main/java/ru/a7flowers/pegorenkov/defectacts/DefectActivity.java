@@ -208,6 +208,11 @@ public class DefectActivity extends ItemActivity {
             public void onGoodFounded(Good good) {
                 model.setGood(good, getSupportFragmentManager());
             }
+
+            @Override
+            public void onGoodNotFounded(CharSequence charSequence) {
+                model.logGoodNotFound(charSequence.toString());
+            }
         });
         acSearch.setAdapter(adapter);
 

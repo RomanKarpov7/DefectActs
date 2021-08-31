@@ -266,4 +266,8 @@ public class DiffViewModel extends AndroidViewModel {
         selectedGood = null;
         mGoodDiffs.setValue(null);
     }
+
+    public void logGoodNotFound(String series) {
+        mRepository.logGoodNotFound(series);
+    }
 }
