@@ -80,7 +80,7 @@ public class UploadPhotoActivity extends AppCompatActivity {
                 notificationManager.cancel(ERROR_ID);
 
                 finish();
-            };
+            }
         });
     }
 

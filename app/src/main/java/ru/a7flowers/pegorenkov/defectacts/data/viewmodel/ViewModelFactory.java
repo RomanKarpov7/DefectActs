@@ -33,7 +33,7 @@ public class ViewModelFactory extends ViewModelProvider.AndroidViewModelFactory 
 
                     INSTANCE = new ViewModelFactory(application,
                             Repository.getInstance(
-                                    NetworkDataSource.getInstance(settings),
+                                    NetworkDataSource.getInstance(settings, fragmentManager),
                                     LocalDataSource.getInstance(AppDatabase.getInstance(application)),
                                     fragmentManager));
                 }

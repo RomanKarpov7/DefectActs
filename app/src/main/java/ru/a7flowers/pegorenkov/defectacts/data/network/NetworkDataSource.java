@@ -4,6 +4,7 @@ import android.accounts.NetworkErrorException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -25,6 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import ru.a7flowers.pegorenkov.defectacts.BuildConfig;
 import ru.a7flowers.pegorenkov.defectacts.NetworkSettings;
 import ru.a7flowers.pegorenkov.defectacts.data.AppExecutors;
 import ru.a7flowers.pegorenkov.defectacts.data.DataSource;
@@ -38,6 +40,8 @@ import ru.a7flowers.pegorenkov.defectacts.data.DataSource.UploadPhotosCallback;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.Delivery;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.Reason;
 import ru.a7flowers.pegorenkov.defectacts.data.entities.User;
+import ru.a7flowers.pegorenkov.defectacts.data.local.LocalDataSource;
+import ru.a7flowers.pegorenkov.defectacts.views.CustomDialogFragment;
 
 public class NetworkDataSource {
 
@@ -49,7 +53,7 @@ public class NetworkDataSource {
 
     private static NetworkSettings mSettings;
 
-    private NetworkDataSource() {
+    private NetworkDataSource(FragmentManager fragmentManager) {
         mAppExecutors = AppExecutors.getInstance();
 
         OkHttpClient client = new OkHttpClient.Builder()
@@ -64,28 +68,37 @@ public class NetworkDataSource {
                 .readTimeout(30, TimeUnit.SECONDS)
                 .build();
 
-        Retrofit mRetrofit = new Retrofit.Builder()
-                .client(client)
-                .baseUrl(mSettings.getServerPath())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
+        Retrofit mRetrofit = null;
+        try {
+            mRetrofit = new Retrofit.Builder()
+                    .client(client)
+                    .baseUrl(mSettings.getServerPath())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
+        } catch (Exception e) {
+            CustomDialogFragment dialog = new CustomDialogFragment(
+                    "Ошибка подключения к серверу!",
+                    "Выполнено подключение к сереверу " + BuildConfig.ServerPath + ", т.к. не удалось подключитья к серверу, уаказанному в настройках, по причине: " + e.getMessage());
+            dialog.show(fragmentManager, "custom");
+            Log.d("ServerConnectError", e.getMessage());
+            mRetrofit = new Retrofit.Builder()
+                    .client(client)
+                    .baseUrl(BuildConfig.ServerPath)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
+        }
         mDeliveryApi = mRetrofit.create(DeliveryApi.class);
     }
 
-    public static NetworkDataSource getInstance(NetworkSettings settings) {
+    public static NetworkDataSource getInstance(NetworkSettings settings, FragmentManager fragmentManager) {
         if (INSTANCE == null) {
             synchronized (NetworkDataSource.class) {
                 if (INSTANCE == null) {
                     mSettings = settings;
-                    INSTANCE = new NetworkDataSource();
-                    mSettings.setServerPathChangeListener(new NetworkSettings.ServerPathChangeListener() {
-                        @Override
-                        public void onServerPathChanged() {
-                            INSTANCE = new NetworkDataSource();
-                        }
-                    });
+                    INSTANCE = new NetworkDataSource(fragmentManager);
+                    mSettings.setServerPathChangeListener(() -> INSTANCE = new NetworkDataSource(fragmentManager));
                 }
             }
         }
