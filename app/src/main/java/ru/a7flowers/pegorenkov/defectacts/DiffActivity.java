@@ -148,7 +148,7 @@ public class DiffActivity extends ItemActivity {
                     new TextChangeListener() {
                         @Override
                         public void onTextChanged(String value) {
-                            model.setDiffLength(Integer.parseInt(value));
+                            model.setDiffLength(Float.parseFloat(value));
                         }
                     });
             addValueData(data, diff.getListDiameter(), R.string.diameter,
@@ -164,7 +164,7 @@ public class DiffActivity extends ItemActivity {
                     new TextChangeListener() {
                         @Override
                         public void onTextChanged(String value) {
-                            model.setDiffBulk(Integer.parseInt(value));
+                            model.setDiffBulk(Float.parseFloat(value));
                         }
                     });
             addValueData(data, diff.getListBudgeonAmount(), R.string.budgeonAmount,
@@ -180,7 +180,7 @@ public class DiffActivity extends ItemActivity {
                     new TextChangeListener() {
                         @Override
                         public void onTextChanged(String value) {
-                            model.setDiffWeigth(Integer.parseInt(value));
+                            model.setDiffWeigth(Float.parseFloat(value));
                         }
                     });
 

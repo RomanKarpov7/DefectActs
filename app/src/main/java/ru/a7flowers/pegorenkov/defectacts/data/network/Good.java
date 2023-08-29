@@ -39,9 +39,9 @@ public class Good {
     @Relation(parentColumn = "series", entityColumn = "series", entity = ValueDiameterEntity.class, projection = {"value"})
     private List<Float> listDiameter;
     @Relation(parentColumn = "series", entityColumn = "series", entity = ValueLengthEntity.class, projection = {"value"})
-    private List<Integer> listLength;
+    private List<Float> listLength;
     @Relation(parentColumn = "series", entityColumn = "series", entity = ValueWeigthEntity.class, projection = {"value"})
-    private List<Integer> listWeigth;
+    private List<Float> listWeigth;
     @Relation(parentColumn = "series", entityColumn = "series", entity = ValueBudgeonAmountEntity.class, projection = {"value"})
     private List<Integer> listBudgeonAmount;
     @Relation(parentColumn = "series", entityColumn = "series", entity = ValueBulkEntity.class, projection = {"value"})
@@ -111,19 +111,19 @@ public class Good {
         this.listDiameter = diameter;
     }
 
-    public List<Integer> getListLength() {
+    public List<Float> getListLength() {
         return listLength;
     }
 
-    public void setListLength(List<Integer> length) {
+    public void setListLength(List<Float> length) {
         this.listLength = length;
     }
 
-    public List<Integer> getListWeigth() {
+    public List<Float> getListWeigth() {
         return listWeigth;
     }
 
-    public void setListWeigth(List<Integer> weigth) {
+    public void setListWeigth(List<Float> weigth) {
         this.listWeigth = weigth;
     }
 

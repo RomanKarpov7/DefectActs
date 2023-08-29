@@ -211,10 +211,10 @@ public class Repository {
                         for (Float value:good.getListDiameter()) {
                             diameters.add(new ValueDiameterEntity(good.getSeries(), value));
                         }
-                        for (Integer value:good.getListLength()) {
+                        for (Float value:good.getListLength()) {
                             lengths.add(new ValueLengthEntity(good.getSeries(), value));
                         }
-                        for (Integer value:good.getListWeigth()) {
+                        for (Float value:good.getListWeigth()) {
                             weigths.add(new ValueWeigthEntity(good.getSeries(), value));
                         }
                         for (Integer value:good.getListBudgeonAmount()) {

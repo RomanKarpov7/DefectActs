@@ -218,14 +218,14 @@ public class DiffViewModel extends AndroidViewModel {
         mDiff.setValue(diff);
     }
 
-    public void setDiffLength(int length) {
+    public void setDiffLength(float length) {
         Diff diff = mDiff.getValue();
         if(diff == null) return;
         diff.setLength(length);
         mDiff.setValue(diff);
     }
 
-    public void setDiffWeigth(int weigth) {
+    public void setDiffWeigth(float weigth) {
         Diff diff = mDiff.getValue();
         if(diff == null) return;
         diff.setWeigth(weigth);
@@ -239,7 +239,7 @@ public class DiffViewModel extends AndroidViewModel {
         mDiff.setValue(diff);
     }
 
-    public void setDiffBulk(int bulk) {
+    public void setDiffBulk(float bulk) {
         Diff diff = mDiff.getValue();
         if(diff == null) return;
         diff.setBulk(bulk);

@@ -39,9 +39,9 @@ public class Diff {
 
     private float diameter;
 
-    private int length;
+    private float length;
 
-    private int weigth;
+    private float weigth;
 
     private int budgeonAmount;
 
@@ -50,9 +50,9 @@ public class Diff {
     @Relation(parentColumn = "series", entityColumn = "series", entity = ValueDiameterEntity.class, projection = {"value"})
     private List<Float> listDiameter;
     @Relation(parentColumn = "series", entityColumn = "series", entity = ValueLengthEntity.class, projection = {"value"})
-    private List<Integer> listLength;
+    private List<Float> listLength;
     @Relation(parentColumn = "series", entityColumn = "series", entity = ValueWeigthEntity.class, projection = {"value"})
-    private List<Integer> listWeigth;
+    private List<Float> listWeigth;
     @Relation(parentColumn = "series", entityColumn = "series", entity = ValueBudgeonAmountEntity.class, projection = {"value"})
     private List<Integer> listBudgeonAmount;
     @Relation(parentColumn = "series", entityColumn = "series", entity = ValueBulkEntity.class, projection = {"value"})
@@ -98,11 +98,11 @@ public class Diff {
         return diameter;
     }
 
-    public int getLength() {
+    public float getLength() {
         return length;
     }
 
-    public int getWeigth() {
+    public float getWeigth() {
         return weigth;
     }
 
@@ -166,11 +166,11 @@ public class Diff {
         this.photoQuantity = photoQuantity;
     }
 
-    public void setLength(int length) {
+    public void setLength(float length) {
         this.length = length;
     }
 
-    public void setWeigth(int weigth) {
+    public void setWeigth(float weigth) {
         this.weigth = weigth;
     }
 
@@ -186,19 +186,19 @@ public class Diff {
         this.listDiameter = listDiameter;
     }
 
-    public List<Integer> getListLength() {
+    public List<Float> getListLength() {
         return listLength;
     }
 
-    public void setListLength(List<Integer> listLength) {
+    public void setListLength(List<Float> listLength) {
         this.listLength = listLength;
     }
 
-    public List<Integer> getListWeigth() {
+    public List<Float> getListWeigth() {
         return listWeigth;
     }
 
-    public void setListWeigth(List<Integer> listWeigth) {
+    public void setListWeigth(List<Float> listWeigth) {
         this.listWeigth = listWeigth;
     }
 

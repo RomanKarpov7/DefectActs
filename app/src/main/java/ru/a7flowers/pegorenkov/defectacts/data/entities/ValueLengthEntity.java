@@ -11,9 +11,9 @@ public class ValueLengthEntity {
     @ColumnInfo(name = "series")
     private String series;
     @ColumnInfo(name = "value")
-    private int value;
+    private float value;
 
-    public ValueLengthEntity(String series, int value) {
+    public ValueLengthEntity(String series, float value) {
         this.series = series;
         this.value = value;
     }
@@ -22,7 +22,7 @@ public class ValueLengthEntity {
         return series;
     }
 
-    public int getValue() {
+    public float getValue() {
         return value;
     }
 }
